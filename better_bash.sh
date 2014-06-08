@@ -10,9 +10,11 @@
 #    if [ -f ~/better_bash.sh ]; then
 #        . ~/better_bash.sh
 #    fi
-
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
 alias p='pushd'
 alias d='dirs -v'
 alias ll='ls -laF'
 dc() { builtin cd "$@" && ls; } # 'dc' will change directory and then do an 'ls'
+
 
