@@ -15,4 +15,5 @@ alias gl='git log --all --decorate --graph --oneline'
 alias gs='git status'
 alias gr='git remote -v'
 alias gb='git branch -v'
-
+alias gc='git commit'
+alias ga='git add'
