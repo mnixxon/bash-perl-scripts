@@ -1,5 +1,27 @@
 #RHEL 6.5 lockdown script based on running SECSCN 6.3 x64
 
+echo "############################################################"
+echo "#                                                          #"
+echo "#                   RHEL 6.5 Lockdown                        #"
+echo "#                                                          #"
+echo "############################################################"
+echo "# Running this lockdown script will disable certain system #"
+echo "# functions, services, and directory/file access in an     #"
+echo "# attempt to secure this host to meet compliance with DoD  #"
+echo "# and project security requirements.                       #"
+echo "#                                                          #"
+echo "# Do not run this script unless you are knowledgeable of   #"
+echo "# the changes that may result as it can render the host    #"
+echo "# inaccessible and/or unoperable.                         #"
+echo "############################################################"
+
+echo -n "Would you like to continue (y/n)"?
+read answer
+
+if [ "$answer" != "y" -a "$answer" != "Y" ]; then
+  exit 1
+fi
+
 if [ `whoami` != "root" ]; then
         echo "$0 error: you must run this script as root user"
         exit 1
@@ -135,6 +157,7 @@ cat ~/motd.txt > /etc/issue.net
 
 #L8.4
 # Need to create the directory and file since it doesn't exist by default
+# Note:  I don't think this does anything for RHEL 6, but it probably makes the SECSCN hit go away
 mkdir /usr/share/gdm/themes
 mkdir /usr/share/gdm/themes/RHEL
 cat ~/motd_gui.xml > /usr/share/gdm/themes/RHEL/RHEL.xml

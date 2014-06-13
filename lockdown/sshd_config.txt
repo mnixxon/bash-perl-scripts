@@ -1,4 +1,4 @@
-XllForwarding no
+X11Forwarding no
 MaxAuthTries 1
 IgnoreRhosts yes
 PermitRootLogin no
