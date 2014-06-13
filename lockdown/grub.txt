@@ -1,0 +1,11 @@
+ GRUB can be configured to address the first two issues listed in Section 4.2.2, “Boot Loader Passwords” by adding a password directive to its configuration file. To do this, first decide on a password, then open a shell prompt, log in as root, and type:
+
+/sbin/grub-md5-crypt
+
+When prompted, type the GRUB password and press Enter. This returns an MD5 hash of the password.
+Next, edit the GRUB configuration file /boot/grub/grub.conf. Open the file and below the timeout line in the main section of the document, add the following line:
+
+ password --md5 <password-hash>
+
+Replace <password-hash> with the value returned by /sbin/grub-md5-crypt[6].
+The next time the system boots, the GRUB menu does not allow access to the editor or command interface without first pressing p followed by the GRUB password. 

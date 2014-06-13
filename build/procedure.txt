@@ -1,0 +1,157 @@
+Environment
+Dell Precision T3600
+RHEL Server 6.3
+Interface
+em1
+External network
+DHCP
+Argon network
+IP 192.168.2.151
+Gateway 192.168.2.2
+Red Hat Logins
+rh_jcockrel
+904874
+
+
+To change from Guest network (needed for software installs) to Argon network
+(JIRA, Stash, etc)
+
+To the Argon!
+
+service network stop
+mv ifcfg-eth0 0ifcfg-eth0
+mv 0ifcfg-p3p1 ifcfg-p3p1
+service network start
+echo "search argon.local lh.argoneng.com" >> /etc/resolv.conf
+set up automatic proxy in Firefox
+http://pac.argonst.com/proxy1.pac
+
+To the Internet!
+
+service network stop
+mv ifcfg-p3p1 0ifcfg-p3p1
+mv 0ifcfg-eth0 ifcfg-eth0
+service network start
+
+Steps
+• Install RHEL Server 6.3 from the Legacy BIOS (not UEFI) and selected the "Software development" installation
+• NOTE:  RHEL 6.5 is not compatible with the BIOS for this computer
+• Configured the em1 interface for DHCP and connected to external network
+• Alternatively, use the Red Hat Subscription Manager instead (this is the newer, preferred method)
+• Add the optional repo to the yum configuration
+For Red Hat Subscription Management
+sudo yum-config-manager --enable rhel-6-server-optional-rpms
+
+• As root, run yum upgrade to upgrade all existing packages.  This will take a while.
+• The following packages need to be installed according to David Rogers
+∘ cmake 2.6.4-5
+∘ cppunit 1.12.1-3.1
+∘ cheetah 2.4.1-1
+∘ wxBase 2.8.12-1
+∘ wxPython 2.8.12.0-1
+∘ jack-audio-connection 0.121.3-1
+∘ portaudio 19-9
+∘ log4cpp 1.0-13
+∘ comedilib 0.8.1-7
+∘ uhd 3.5 (build from source)
+• We will be installing GNU Radio and UHD from source, and building.  This allows us to get the most up-to-date code.  The packages (.rpm) for Fedora *should* work with RedHat, but they won't be the latest version.  Could also install from pre-compiled tarballs.  However, the best way to keep up to date with the latest code is to pull the source from GitHub and build manually.
+• Install GNU radio dependencies as per
+http://gnuradio.org/doc/doxygen/build_guide.html
+Note:  Probably don't need the qt and qwt dependencies (we are using wx), but I wanted to install them anyway just in case we later decide to use qt instead of wx for the GUI
+
+Install Video Card drivers
+from http://support.dell.com
+Need to install dependencies (http://linux.dell.com/dkms/)
+dkms-2.2.0.3-1.noarch.rpm
+libX11-1.5.0-4.el6.i686.rpm
+Download Nvidia drives for Linux 64-bit from their website.  The video card is Quadro 600.
+http://www.tecmint.com/install-nvidia-drivers-in-linux/
+
+
+Packages to install using yum install
+cmake.x86_64
+cppunit.x86_64
+python-cheetah.x86_64
+gsl.x86_64
+qwt.x86_64
+PyQt4.x86_64
+log4cpp.x86_64
+python-docutils.noarch
+scipi.x86_64
+fftw3f-devel
+python-sphinx
+gsl-devel
+PyQt4-devel
+qwt-devel
+log4cpp-devel
+cppunit-devel
+libusb-devevl
+alacarte (for GNOME menu editing)
+
+
+Install via rpm
+These .rpms need to be downloaded from the Fedora EPEL repos. 
+https://dl.fedoraproject.org/pub/epel/6/x86_64/repoview/ 
+
+wxBase-2.8.12-1.el6.x86_64.rpm
+wxGTK-2.8.12-1.el6.x86_64.rpm
+wxGTK-gl-2.8.12-1.el6.x86_64.rpm
+wxGTK-media-2.8.12-1.el6.x86_64.rpm
+wxPython-2.8.12.0-1.el6.x86_64.rpm
+htop-1.0.1-2.el6.x86_64.rpm
+
+
+Install via tarball
+gvim-7.4.307-4-x86_64.pkg.tar.xz
+meld-1.8.5.tar.xz
+
+Build from source
+Make a directory called 'repos' under /
+All source code pulled from GitHub will be stored here.
+
+uhd (http://code.ettus.com/redmine/ettus/projects/uhd/wiki/UHD_Build)
+Now using uhd 3.71 (needs to get approved by security)
+
+gnu radio 3.7.4
+http://gnuradio.org/redmine/projects/gnuradio/wiki/InstallingGRFromSource
+
+
+
+
+Create a file called .bashrc.custom that has the following in it, and then source it to your .bashrc file
+## .bashrc.custom
+#GNU Radio 3.7.4 paths
+#This assumes the default installation directory of /usr/local
+#cmake and make were run with no optional parameters
+
+GNURADIO='/usr/local'
+export LD_LIBRARY_PATH="$GNURADIO/lib64"
+export PYTHONPATH="$GNURADIO/lib64/python2.6/site-packages"
+export GRC_BLOCK_PATH="$GNURADIO/share/gnuradio/grc/blocks"
+
+## .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# User specific aliases and functions
+if [ -f ~/.bashrc.custom ]; then
+	. ~/.bashrc.custom
+fi
+
+Install OpenOffice
+http://www.openoffice.org/download/common/instructions.html#linux
+
+Install iPython
+ipython-1.2.1.tar.gz
+
+Install Octave
+octave-3.8.1.tar.gz
+yum install pcre-devel
+yum install blas-devel
+yum install lapack-devel
+yum install gnuplot
+yum install glpk-devel
+

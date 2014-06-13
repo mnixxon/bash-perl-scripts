@@ -1,0 +1,11 @@
+XllForwarding no
+MaxAuthTries 1
+IgnoreRhosts yes
+PermitRootLogin no
+PermitEmptyPasswords no
+Banner '/etc/issue'
+LogLevel info
+HostbasedAuthentication no
+GatewayPorts no
+PrintLastLog yes
+PermitUserEnvironment no
