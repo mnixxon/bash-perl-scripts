@@ -112,34 +112,31 @@ All source code pulled from GitHub will be stored here.
 uhd (http://code.ettus.com/redmine/ettus/projects/uhd/wiki/UHD_Build)
 Now using uhd 3.71 (needs to get approved by security)
 
-gnu radio 3.7.4
+gnu radio from piranha-gnuradio repo on stash.
+On the argon network, do 
+git clone <repo>
 http://gnuradio.org/redmine/projects/gnuradio/wiki/InstallingGRFromSource
 
+Bash shell customizations
+To add custom stuff to everyone's bash shell, you can add .sh files to the
+/etc/profile.d/ folder.
 
+Add the following files to /etc/profile.d/
+git.sh
+gnuradio.sh
+better_bash.sh
 
+Git custom stuff
+Copy over the gitconfig file
+cp gitconfig /etc/gitconfig
+sudo chmod a+r /etc/gitconfig
 
-Create a file called .bashrc.custom that has the following in it, and then source it to your .bashrc file
-## .bashrc.custom
-#GNU Radio 3.7.4 paths
-#This assumes the default installation directory of /usr/local
-#cmake and make were run with no optional parameters
-
-GNURADIO='/usr/local'
-export LD_LIBRARY_PATH="$GNURADIO/lib64"
-export PYTHONPATH="$GNURADIO/lib64/python2.6/site-packages"
-export GRC_BLOCK_PATH="$GNURADIO/share/gnuradio/grc/blocks"
-
-## .bashrc
-
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
-
-# User specific aliases and functions
-if [ -f ~/.bashrc.custom ]; then
-	. ~/.bashrc.custom
-fi
+Set up Meld as custom diff and merge tool
+Add the following files to /usr/local/bin
+extDiff
+extMerge
+Make sure that it is executable
+chmod 775 /usr/local/bin/ext*
 
 Install OpenOffice
 http://www.openoffice.org/download/common/instructions.html#linux
