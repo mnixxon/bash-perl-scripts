@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #RHEL 6.5 lockdown script based on running SECSCN 6.3 x64
 
 echo "############################################################"
@@ -31,12 +33,20 @@ fi
 chkconfig --level 12345 auditd on
 
 # L1.8, L1.9, L1.10, L1.11, L1.12
-# Fix this sed logic, it sucks
 cp /etc/audit/auditd.conf /etc/audit/auditd.conf.bak
-sed -i s/SUSPEND/HALT/g /etc/audit/auditd.conf
-sed -i s/INCREMENTAL/SYNC/g /etc/audit/auditd.conf
-sed -i s/SYSLOG/email/g /etc/audit/auditd.conf
-sed -i s/SUSPEND/email/g /etc/audit/auditd.conf
+
+sed -i 's/^flush\ =\ INCREMENTAL/flush = DATA/' /etc/audit/auditd.conf
+sed -i 's/^admin_space_left_action\ =\ SUSPEND/admin_space_left_action = SYSLOG/' /etc/audit/auditd.conf
+sed -i 's/^disk_full_action\ =\ SUSPEND/disk_full_action = SINGLE/' /etc/audit/auditd.conf
+sed -i 's/^disk_error_action\ =\ SUSPEND/disk_error_action = SINGLE/' /etc/audit/auditd.conf
+
+# Putting in an email address here breaks auditd.  I think email needs to be set up on the system first.
+# sed -i 's/^action_mail_acct\ =\ root/action_mail_acct = sysadmin@argon.local/' /etc/audit/auditd.conf
+
+# Email accounts are not set up on most systems, so outputting messages to SYSLOG
+# is appropriate.  SECSCN will complain about this, so add it to mitigation report
+# sed -i 's/^space_left_action\ =\ SYSLOG/space_left_action = EMAIL/' /etc/audit/auditd.conf
+# sed -i 's/^admin_space_left_action\ =\ SUSPEND/admin_space_left_action = EMAIL/' /etc/audit/auditd.conf
 
 #L1.14
 # Add audit=1 to the end of the kernal lines in /etc/grub.conf
@@ -92,7 +102,9 @@ chmod 0750 /etc/cron.daily
 chmod 0750 /etc/cron.hourly
 chmod 0750 /etc/cron.monthly
 chmod 0750 /etc/cron.weekly
-chmod 0750 /etc/security
+# If /etc/security permissions are set to 0750 (as SECSCN wants),
+# you cannot unlock your GNOME session.  Changed to 0755.
+chmod 0755 /etc/security
 chmod 0700 /root
 chmod 0700 /var/log/audit
 
