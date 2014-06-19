@@ -157,4 +157,10 @@ yum install glpk-devel
 
 Install MATLAB for Linux
 
-Install McAfee VirusScan Enterprise for Linux
+Install McAfee VirusScan Enterprise for Linux version 1.9.0
+Need to install pam.i686 (32-bit PAM libraries) to make the webpage work
+yum install pam.686
+
+Also I had to modify the bash install script and modify the checkAccess
+function to be echo "Bypassing checkAccess function" because it was causing
+the script to fail.
