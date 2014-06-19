@@ -84,7 +84,7 @@ log4cpp-devel
 cppunit-devel
 libusb-devevl
 alacarte (for GNOME menu editing)
-
+system-config-lvm (LVM partition tool)
 
 Install via rpm
 These .rpms need to be downloaded from the Fedora EPEL repos. 
@@ -97,7 +97,7 @@ wxGTK-media-2.8.12-1.el6.x86_64.rpm
 wxPython-2.8.12.0-1.el6.x86_64.rpm
 htop-1.0.1-2.el6.x86_64.rpm
 
-xGTK-devel-2.8.12-1.el6.x86_64.rpm
+wxGTK-devel-2.8.12-1.el6.x86_64.rpm
 wxPython-docs-2.8.12.0-1.el6.x86_64.rpm
 bakefile-0.2.8-3.el6.x86_64.rpm
 python-empy-3.3-5.el6.noarch.rpm

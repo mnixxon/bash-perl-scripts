@@ -3,7 +3,7 @@ MaxAuthTries 1
 IgnoreRhosts yes
 PermitRootLogin no
 PermitEmptyPasswords no
-Banner '/etc/issue'
+Banner /etc/issue
 LogLevel info
 HostbasedAuthentication no
 GatewayPorts no
