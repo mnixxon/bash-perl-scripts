@@ -116,8 +116,8 @@ sed -r -i.bak s/umask\ [0-9]{3}/umask\ 027/g /etc/bashrc
 
 #L2.18 L2.19
 cp /etc/fstab /etc/fstab.bak
-sed -r -i 's:\/boot.*$:& nodev nosuid:g' /etc/fstab
-sed -r -i 's:\/home.*$:& nodev nosuid:g' /etc/fstab
+sed -r -i 's:/boot.*defaults:/boot nodev,nosuid:' /etc/fstab
+sed -r -i 's:/home.*defaults:/home nodev,nosuid:' /etc/fstab
 
 #L2.21, L2.22
 cp /etc/sysconfig/init /etc/sysconfig/init.bak
