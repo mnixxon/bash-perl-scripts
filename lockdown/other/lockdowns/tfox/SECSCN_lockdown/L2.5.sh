@@ -1,0 +1,85 @@
+#!/bin/bash
+# To resolve SECSCN test L2.5
+# Description:
+#  Critical Directory Permissions
+#  Verify permissions are not more permissible than the expected results 
+#  for system critical directoies (if exits) 
+
+chmod 0755 /
+chmod 0755 /bin/
+chmod 0755 /etc/
+chmod 0750 /etc/cron.d/
+chmod 0750 /etc/cron.daily/
+chmod 0750 /etc/cron.hourly/
+chmod 0750 /etc/cron.monthly/
+chmod 0750 /etc/cron.weekly/
+chmod 0755 /etc/default/
+chmod 0755 /etc/httpd/conf.d/
+chmod 0755 /etc/httpd/conf/
+chmod 0755 /etc/ld.so.conf.d/
+chmod 0755 /etc/postfix/
+chmod 0755 /etc/rc.d/init.d/
+chmod 0755 /etc/rc.d/rc0.d/
+chmod 0755 /etc/rc.d/rc1.d/
+chmod 0755 /etc/rc.d/rc2.d/
+chmod 0755 /etc/rc.d/rc3.d/
+chmod 0755 /etc/rc.d/rc4.d/
+chmod 0755 /etc/rc.d/rc5.d/
+chmod 0755 /etc/rc.d/rc6.d/
+chmod 0750 /etc/security
+chmod 0755 /etc/xinetd.d/
+chmod 0755 /opt/
+chmod 0700 /root/
+chmod 0750 /root/.gnome2/keyrings/
+chmod 0750 /root/.ssh/
+chmod 0755 /sbin/
+chmod 0755 /usr/
+chmod 0755 /usr/bin/
+chmod 0755 /usr/local/
+chmod 0755 /usr/sbin/
+chmod 0755 /usr/share/doc/
+chmod 0755 /usr/share/man/
+chmod 0755 /var/
+chmod 0755 /var/log/
+chmod 0700 /var/log/audit/
+chmod 0755 /var/spool/
+chmod 0750 /var/spool/cron/
+chown root:root /
+chown root:root /bin/
+chown root:root /etc/
+chown root:root /etc/cron.d/
+chown root:root /etc/cron.daily/
+chown root:root /etc/cron.hourly/
+chown root:root /etc/cron.monthly/
+chown root:root /etc/cron.weekly/
+chown root:root /etc/default/
+chown root:root /etc/httpd/conf.d/
+chown root:root /etc/httpd/conf/
+chown root:root /etc/ld.so.conf.d/
+chown root:root /etc/postfix/
+chown root:root /etc/rc.d/init.d/
+chown root:root /etc/rc.d/rc0.d/
+chown root:root /etc/rc.d/rc1.d/
+chown root:root /etc/rc.d/rc2.d/
+chown root:root /etc/rc.d/rc3.d/
+chown root:root /etc/rc.d/rc4.d/
+chown root:root /etc/rc.d/rc5.d/
+chown root:root /etc/rc.d/rc6.d/
+chown root:root /etc/security
+chown root:root /etc/xinetd.d/
+chown root:root /opt/
+chown root:root /root/
+chown root:root /root/.gnome2/keyrings/
+chown root:root /root/.ssh/
+chown root:root /sbin/
+chown root:root /usr/
+chown root:root /usr/bin/
+chown root:root /usr/local/
+chown root:root /usr/sbin/
+chown root:root /usr/share/doc/
+chown root:root /usr/share/man/
+chown root:root /var/
+chown root:root /var/log/
+chown root:root /var/log/audit/
+chown root:root /var/spool/
+chown root:root /var/spool/cron/

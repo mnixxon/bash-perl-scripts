@@ -1,0 +1,90 @@
+# L1.15
+# Setting the -e flag to 2 in /etc/audit/audit.rules ensures that the
+# auditing configuration is immutable and requires a reboot to change.
+-e 2
+
+# L1.16
+# The -f flag in /etc/audit/auditd.conf determines the system behavior should
+# the audit subsystem fail. Current guidance requires this flag to be set to 
+# a value of 2, causing the system to halt should auditing fail.
+-f 2
+
+# L1.17
+# Ensure that the system is configured to record events that modify the system's
+# date or time
+-a always,exit -F arch=ARCH -S adjtimex -S settimeofday -S stime -k time-change
+
+-a always,exit -F arch=ARCH -S clock_settime -k time-change
+
+-w /etc/localtime -p wa -k time-change
+
+# L1.18
+# Ensure that the system is configured to record events that modify accounts
+# on the system.
+-w /etc/group -p wa -k identity
+
+-w /etc/passwd -p wa -k identity
+
+-w /etc/gshadow -p wa -k identity
+
+-w /etc/shadow -p wa -k identity
+
+-w /etc/security/opasswd -p wa -k identity
+
+# L1.19
+# Ensure that the system is configured to record events that modify network
+# settings.
+-a exit,always -F arch=ARCH -S sethostname -S setdomainname -k system-locale
+
+-w /etc/issue -p wa -k system-locale
+
+-w /etc/issue.net -p wa -k system-locale
+
+-w /etc/hosts -p wa -k system-locale
+
+-w /etc/sysconfig/network -p wa -k system-locale
+
+# L1.20
+# Ensure that the system is configured to record events that modify MAC policy.
+-w /etc/selinux/ -p wa -k MAC-policy
+
+# L1.21
+# Ensure that the system is configured to record logon and logout events.
+-w /var/log/faillog -p wa -k logins
+
+-w /var/log/lastlog -p wa -k logins
+
+# L1.22
+# Ensure that the system is configured to record process and session information.
+-w /var/run/utmp -p wa -k session
+
+-w /var/log/btmp -p wa -k session
+
+-w /var/log/wtmp -p wa -k session
+
+# L1.23
+# Ensure that the system is configured to record file permission changes for
+# all users and root.
+-a always,exit -F arch=ARCH -S chmod -S fchmod -S fchmodat -F auid>=500 -F auid!=4294967295 -k perm_mod
+
+-a always,exit -F arch=ARCH -S chown -S fchown -S fchownat -S lchown -F auid>=500 -F auid!=4294967295 -k perm_mod
+
+-a always,exit -F arch=ARCH -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=500 -F auid!=4294967295 -k perm_mod
+
+# L1.24
+# Ensure that the system is configured to record unauthorized file accesses.
+-a always,exit -F arch=ARCH -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=500 -F auid!=4294967295 -k access
+
+-a always,exit -F arch=ARCH -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=500 -F auid!=4294967295 -k access
+
+# L1.26
+# Ensure that the system is configured to record media exportation events.
+-a always,exit -F arch=ARCH -S mount -F auid>=500 -F auid!=4294967295 -k export
+
+# L1.27
+# Ensure that the system is configured to record file deletion events.
+-a always,exit -F arch=ARCH -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295 -k delete
+
+# L1.28
+# Ensure that the system is configured to record system administrator actions.
+-w /etc/sudoers -p wa -k actions
