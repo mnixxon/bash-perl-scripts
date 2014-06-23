@@ -85,6 +85,8 @@ cppunit-devel
 libusb-devevl
 alacarte (for GNOME menu editing)
 system-config-lvm (LVM partition tool)
+xorg-x11-fonts-ISO8859-1-75dpi
+xterm.x86_64
 
 Install via rpm
 These .rpms need to be downloaded from the Fedora EPEL repos. 
@@ -102,7 +104,7 @@ wxPython-docs-2.8.12.0-1.el6.x86_64.rpm
 bakefile-0.2.8-3.el6.x86_64.rpm
 python-empy-3.3-5.el6.noarch.rpm
 wxPython-devel-2.8.12.0-1.el6.x86_64.rpm
-
+ddd-3.3.12-6.el6.x86_64.rpm
 
 Install via tarball
 gvim-7.4.307-4-x86_64.pkg.tar.xz
