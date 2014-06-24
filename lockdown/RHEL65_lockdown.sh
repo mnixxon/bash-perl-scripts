@@ -197,3 +197,9 @@ echo -e 'zenity --text-info --filename=/etc/motd --width=700 --height=700 --titl
 
 # Edit the /etc/gconf/gconf.xml.defaults/%gconf-tree.xml
 # and change the boolean for disable_user_list from false to true. 
+
+
+# Disable user switching and log out prompt
+# Edit the /etc/gconf/gconf.xml.defaults/%gconf-tree.xml.
+# Change the boolean for disable_user_switch to true.
+# Change the boolean for logout_prompt to false.
