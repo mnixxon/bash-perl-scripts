@@ -50,6 +50,14 @@ Steps
 For Red Hat Subscription Management
 sudo yum-config-manager --enable rhel-6-server-optional-rpms
 
+Also add the EPEL repositories
+wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm 
+rpm -ivh epel-release-6-8.noarch.rpm
+yum repolist
+
+After running `yum repolist` you should be able to see that the EPEL repo as
+been added.
+
 • As root, run yum upgrade to upgrade all existing packages.  This will take a while.
 • We will be installing GNU Radio and UHD from source, and building.  This allows us to get the most up-to-date code.  The packages (.rpm) for Fedora *should* work with RedHat, but they won't be the latest version.  Could also install from pre-compiled tarballs.  However, the best way to keep up to date with the latest code is to pull the source from GitHub and build manually.
 • Install GNU radio dependencies as per
@@ -66,6 +74,7 @@ http://www.tecmint.com/install-nvidia-drivers-in-linux/
 
 
 Packages to install using yum install
+createrepo (for adding manual yum repos)
 cmake.x86_64
 cppunit.x86_64
 python-cheetah.x86_64
@@ -92,6 +101,9 @@ Install via rpm
 These .rpms need to be downloaded from the Fedora EPEL repos. 
 https://dl.fedoraproject.org/pub/epel/6/x86_64/repoview/ 
 
+NOTE:  All of these packages should be available by using the YUM command
+if you have added the EPEL repo to your yum repo list in /etc/yum.repos.d/
+
 wxBase-2.8.12-1.el6.x86_64.rpm
 wxGTK-2.8.12-1.el6.x86_64.rpm
 wxGTK-gl-2.8.12-1.el6.x86_64.rpm
@@ -105,6 +117,8 @@ bakefile-0.2.8-3.el6.x86_64.rpm
 python-empy-3.3-5.el6.noarch.rpm
 wxPython-devel-2.8.12.0-1.el6.x86_64.rpm
 ddd-3.3.12-6.el6.x86_64.rpm
+fuse-sshfs
+
 
 Install via tarball
 gvim-7.4.307-4-x86_64.pkg.tar.xz
@@ -166,3 +180,55 @@ yum install pam.686
 Also I had to modify the bash install script and modify the checkAccess
 function to be echo "Bypassing checkAccess function" because it was causing
 the script to fail.
+
+
+Create custom yum repo for doing updates on closed networks
+
+yum install createrepo
+mkdir repos/yum
+createrepo --database /repos/yum/
+touch /etc/yum.repos.d/local-updates.repo
+chmod 644 local-updates.repo
+vim local-updates.repo
+
+Add the following info to the file
+[rhel-6-local-updates]
+name = RHEL 6 Server local updates (Red Hat and EPEL)
+baseurl = file:///repos/yum
+enabled = 1
+
+Before deploying the build to a close network, disable the other remote repos
+by changing everything to `enabled = 0`
+
+Add additional useful yum plugins
+
+yum install yum-plugin-security
+yum install yum-plugin-downloadonly
+
+The security plugin lets you only grab the security affected updates
+`yum upgrade --security` will only update security relavent packages
+The downloadonly plugin lets you download rpm packages through yum
+without actually installing them on a system.
+
+Track future updates to RHEL 6
+
+To keep track of all the updates that were done on the unclass build
+computer, edit the yum.conf file to save all of the packages that
+have been installed.  Then those packages can be brought to the closed
+network and placed in the /repo/yum folder and installed via the 
+`yum install` command, assuming the repo has been set up.
+
+In the yum.conf file, change
+keepcache = 1
+
+Now, all packages will be saved in /var/cache/yum/<repo>/packages
+
+To copy files from the cache to your local yum repo
+
+find /var/cache/yum/ -name "*.rpm" | xargs cp -t /repos/yum
+
+To disable remote Red Hat and EPEL repositories (do this on closed networks)
+
+yum-config-manager --disable epel
+yum-config-manager --disable rhel-6-server-optional-rpms
+num-config-manager --disable rhel-6-server-rpms
