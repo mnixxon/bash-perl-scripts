@@ -1,0 +1,10 @@
+
+[Desktop Entry]
+Type=Application
+Exec=gnome-terminal -e "bash -c \\"/opt/scripts/sshfs_script.sh; exec bash\\""
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Rose automount
+Name=Rose automount
+Comment[en_US]=Mount to user Rose drive using sshfs
+Comment=Mount to user Rose drive using sshfs
