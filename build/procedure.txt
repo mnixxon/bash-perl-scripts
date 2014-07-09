@@ -249,8 +249,10 @@ Add this to sysctl.conf
 net.core.rmem_max=50000000
 net.core.wmem_max=1048576
 
-Disable iptables service (this was causing issues auto-finding Ettus radios).
+Disable 'iptables' service (this was causing issues auto-finding Ettus radios).
 Note that we can probably configure iptables to work with the Ettus radios, but that would require spending time reading the 50 page man page on how iptables work.
+
+Might need to also disable the 'nails' service since this seems to break java.
 
 sudo service iptables stop
 
