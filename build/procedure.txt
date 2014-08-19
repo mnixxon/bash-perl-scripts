@@ -212,6 +212,9 @@ without actually installing them on a system.
 
 Track future updates to RHEL 6
 
+To update RHEL 6 packages
+yum upgrade
+
 To keep track of all the updates that were done on the unclass build
 computer, edit the yum.conf file to save all of the packages that
 have been installed.  Then those packages can be brought to the closed
@@ -238,6 +241,15 @@ rhel-6-local-udpates repo
 
 yum clean all
 
+Then need to update the metadata for the database
+createrepo --update /repos/yum
+
+Then you can update existing packages by using
+yum upgrade
+
+Or install new packages
+yum install <packages> --skip-broken
+
 ### Last minute GNU radio additions ###
 Add this to the /etc/group file
 @usrp:x:id:username1, username2, etc
@@ -260,3 +272,7 @@ cp sshfs_script.sh /opt/scripts/
 chmod 755 sshfs_script.sh
 cp sshfs_script.sh.desktop /etc/xds/autostart/
 chmod 644 sshfs_script.sh.desktop
+
+
+## More packages for GNU Radio
+ice-3.4.2 libraries
