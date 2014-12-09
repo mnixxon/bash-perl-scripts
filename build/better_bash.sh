@@ -15,11 +15,10 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 export CDPATH=~
 alias p='pushd'
 alias d='dirs -v'
-alias ll='ls -laF'
+alias ll='ls -la'
 alias ..='cd ..'
 alias ..2='cd ../..'
 alias ..3='cd ../../..'
 alias ..4='cd ../../../..'
 dc() { builtin cd "$@" && ls; } # 'dc' will change directory and then do an 'ls'
-
-
+export PS1='\u@\h:\W\$'
