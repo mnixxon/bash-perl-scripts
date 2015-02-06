@@ -11,7 +11,7 @@
 #        . ~/better_bash.sh
 #    fi
 export CLICOLOR=1
-export LSCOLORS=GxFxCxDxBxegedabagaced
+#export LSCOLORS=GxFxCxDxBxegedabagaced
 export CDPATH=~
 alias p='pushd'
 alias d='dirs -v'
